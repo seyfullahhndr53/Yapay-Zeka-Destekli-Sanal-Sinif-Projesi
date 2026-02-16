@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Virtual Class Participant",
+  "version": "1.0.0",
+  "description": "Multi-platform emotion analysis for Meet, Zoom, and BigBlueButton",
+
+  "permissions": ["activeTab", "storage", "scripting", "alarms"],
+
+  "host_permissions": [
+    "http://127.0.0.1/*",
+    "http://localhost/*",
+    "https://localhost/*",
+    "http://*/*",
+    "https://*/*",
+    "https://meet.google.com/*",
+    "https://*.bigbluebutton.org/*",
+    "https://*.zoom.us/*"
+  ],
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' http://127.0.0.1:* http://localhost:* http://*:* https://localhost:* https://*:*;"
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://meet.google.com/*",
+        "https://*.zoom.us/*",
+        "https://*/html5client/*",
+        "https://*.bigbluebutton.org/*"
+      ],
+      "js": ["emotion.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Virtual Class Participant"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["popup.html", "settings.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Sınıf Kontrolü - Öğretmen Ayarları</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        color: #333;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .header h1 {
+        font-size: 32px;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header p {
+        margin-top: 10px;
+        opacity: 0.9;
+        font-size: 16px;
+      }
+
+      .section {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+      }
+
+      .section h2 {
+        color: #667eea;
+        margin-top: 0;
+        font-size: 22px;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .teacher-badge {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      .setting-group {
+        margin-bottom: 25px;
+        padding: 20px;
+        background: #f8f9ff;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+      }
+
+      .setting-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #444;
+        font-size: 14px;
+      }
+
+      .setting-group input,
+      .setting-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e1e8ed;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+      }
+
+      .setting-group input:focus,
+      .setting-group select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+        padding: 15px;
+        background: rgba(102, 126, 234, 0.05);
+        border-radius: 8px;
+        border: 1px solid rgba(102, 126, 234, 0.1);
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: auto;
+        margin-right: 12px;
+        transform: scale(1.2);
+      }
+
+      .range-group {
+        padding: 15px 0;
+      }
+
+      .range-display {
+        text-align: center;
+        font-weight: bold;
+        color: #667eea;
+        margin-top: 10px;
+        font-size: 16px;
+      }
+
+      .backend-status {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 25px;
+        border-radius: 12px;
+        border: 2px solid #dee2e6;
+        margin-bottom: 20px;
+      }
+
+      .backend-status.success {
+        border-color: #28a745;
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+      }
+
+      .backend-status.error {
+        border-color: #dc3545;
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+      }
+
+      .btn {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 14px 28px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .btn-secondary {
+        background: linear-gradient(45deg, #6c757d, #5a6268);
+      }
+
+      .btn-test {
+        background: linear-gradient(45deg, #28a745, #20c997);
+        margin-top: 15px;
+      }
+
+      .students-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .student-card {
+        background: linear-gradient(135deg, #f8f9ff 0%, #e6f2ff 100%);
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        border: 2px solid rgba(102, 126, 234, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .student-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+      }
+
+      .save-status {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        display: none;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .save-status.success {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        color: #155724;
+        border: 2px solid #28a745;
+      }
+
+      .save-status.error {
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        color: #721c24;
+        border: 2px solid #dc3545;
+      }
+
+      .feature-highlight {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border: 2px solid #f39c12;
+        padding: 20px;
+        border-radius: 12px;
+        margin: 20px 0;
+      }
+
+      .control-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>👨‍🏫 AI Sınıf Kontrolü</h1>
+      <p>Öğretmen Yönetim ve Ayar Paneli</p>
+    </div>
+
+    <div class="teacher-badge">
+      <h3 style="margin: 0 0 10px 0">🎯 Öğretmen Özellikleri</h3>
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          text-align: left;
+        "
+      >
+        <div>
+          ✅ Tüm öğrencilerin duygu analizi<br />
+          ✅ Gerçek zamanlı dikkat takibi<br />
+          ✅ Otomatik uyarı sistemi
+        </div>
+        <div>
+          ✅ Veri dışa aktarma (CSV)<br />
+          ✅ Analiz ayarları kontrolü<br />
+          ✅ Merkezi backend yönetimi
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🎛️ Analiz Kontrol Ayarları</h2>
+
+      <div class="setting-group">
+        <label for="analysisInterval">Duygu Analizi Aralığı:</label>
+        <select id="analysisInterval">
+          <option value="2000">2 saniye (Çok Hızlı - Yüksek Performans)</option>
+          <option value="3000" selected>3 saniye (Hızlı - Önerilen)</option>
+          <option value="5000">5 saniye (Normal)</option>
+          <option value="10000">10 saniye (Yavaş - Pil Tasarrufu)</option>
+        </select>
+        <small style="color: #666; display: block; margin-top: 8px">
+          💡 Kısa aralıklar daha hassas takip sağlar ama daha fazla kaynak
+          kullanır
+        </small>
+      </div>
+
+      <div class="setting-group">
+        <label for="emotionThreshold"
+          >Uyarı Eşiği (Dikkat Gerektiren Durumlar):</label
+        >
+        <div class="range-group">
+          <input
+            type="range"
+            id="emotionThreshold"
+            min="0.4"
+            max="0.9"
+            step="0.1"
+            value="0.7"
+            style="
+              width: 100%;
+              height: 6px;
+              background: #ddd;
+              outline: none;
+              border-radius: 5px;
+            "
+          />
+          <div class="range-display" id="thresholdValue">70% Güven</div>
+        </div>
+        <small style="color: #666">
+          ⚠️ Bu değerin üzerindeki negatif duygular uyarı oluşturur (Üzgün,
+          Kızgın, Korkmuş)
+        </small>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="alertsEnabled" checked />
+        <label for="alertsEnabled">Dikkat uyarılarını etkinleştir</label>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="dataCollection" checked />
+        <label for="dataCollection"
+          >Öğrenci verilerini otomatik topla ve kaydet</label
+        >
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🌐 Backend Server Ayarları</h2>
+
+      <div class="feature-highlight">
+        <h4 style="margin: 0 0 10px 0">🏫 Merkezi Sistem Açıklaması</h4>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5">
+          <strong>Öğretmen bilgisayarında:</strong> Backend server çalışır ve bu
+          IP adresini paylaşır<br />
+          <strong>Öğrenci bilgisayarlarında:</strong> Bu IP adresine bağlanacak
+          şekilde ayarlanır
+        </p>
+      </div>
+
+      <div class="setting-group">
+        <label for="serverUrl"
+          >Server IP Adresi (Öğrencilerle Paylaşılacak):</label
+        >
+        <input
+          type="text"
+          id="serverUrl"
+          placeholder="örn: http://127.0.0.1:5001"
+          value="http://127.0.0.1:5001"
+        />
+        <small style="color: #666; display: block; margin-top: 8px">
+          🔍 IP adresinizi öğrenmek için: Windows → cmd → "ipconfig" komutu<br />
+          📡 Bu adresi öğrencilerle paylaşın (ör: http://127.0.0.1:5001)
+        </small>
+      </div>
+
+      <div class="setting-group">
+        <label for="teacherApiKey">🔑 Öğretmen API Anahtarı (Güvenlik):</label>
+        <input
+          type="password"
+          id="teacherApiKey"
+          placeholder="teacher_admin_key_2025"
+          value=""
+        />
+        <small style="color: #666; display: block; margin-top: 8px">
+          🛡️ Backend server erişimi için gerekli güvenlik anahtarı<br />
+          ⚠️ Bu anahtarı kimseyle paylaşmayın - sadece öğretmen kontrol paneli
+          için
+        </small>
+      </div>
+
+      <div class="backend-status" id="backendStatus">
+        <h3>
+          🖥️ Backend Durumu:
+          <span id="backendStatusText">Kontrol ediliyor...</span>
+        </h3>
+        <p id="backendDetails">Server bağlantısı kontrol ediliyor...</p>
+        <button class="btn btn-test" id="testBackend">
+          🔍 Backend Bağlantısını Test Et
+        </button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>👥 Öğrenci Takip Ayarları</h2>
+
+      <div class="setting-group">
+        <label for="maxStudents">Maksimum Takip Edilecek Öğrenci Sayısı:</label>
+        <select id="maxStudents">
+          <option value="10">10 Öğrenci</option>
+          <option value="20">20 Öğrenci</option>
+          <option value="30" selected>30 Öğrenci (Önerilen)</option>
+          <option value="50">50 Öğrenci</option>
+          <option value="200">200 Öğrenci</option>
+          <option value="999">Sınırsız</option>
+        </select>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="showTeacherPanel" checked />
+        <label for="showTeacherPanel"
+          >Sayfa üzerinde kontrol panelini göster</label
+        >
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="autoExport" />
+        <label for="autoExport">Oturum sonunda verileri otomatik kaydet</label>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🛠️ Gelişmiş Ayarlar</h2>
+
+      <div class="setting-group">
+        <label for="dataRetention">Veri Saklama Süresi:</label>
+        <select id="dataRetention">
+          <option value="1">1 Gün</option>
+          <option value="7" selected>7 Gün</option>
+          <option value="30">30 Gün</option>
+          <option value="0">Süresiz</option>
+        </select>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="debugMode" />
+        <label for="debugMode">Geliştirici modu (Detaylı loglar)</label>
+      </div>
+    </div>
+
+    <div class="section" style="text-align: center">
+      <div class="control-buttons">
+        <button class="btn" id="saveSettings">💾 Ayarları Kaydet</button>
+        <button class="btn btn-secondary" id="resetSettings">
+          🔄 Varsayılana Dön
+        </button>
+      </div>
+
+      <div class="save-status" id="saveStatus"></div>
+    </div>
+
+    <div class="section">
+      <h2>ℹ️ Sistem Bilgileri</h2>
+      <div style="background: #f8f9fa; padding: 20px; border-radius: 10px">
+        <p><strong>AI Sınıf Kontrolü v2.1.0 - Öğretmen Edition</strong></p>
+        <p><strong>Backend:</strong> Python + TensorFlow Deep Learning</p>
+        <p><strong>Model:</strong> Özel eğitilmiş CNN (6 Duygu Kategorisi)</p>
+        <p>
+          <strong>Güvenlik:</strong> Veriler lokal ağda kalır, internet
+          paylaşımı yok
+        </p>
+
+        <div
+          style="
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 8px;
+          "
+        >
+          <h4 style="margin: 0 0 10px 0">👥 TÜBİTAK 2209/A Proje Ekibi</h4>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 15px;
+              font-size: 13px;
+            "
+          >
+            <div>
+              <strong>📋 Danışman:</strong> Dr. Aslı BOYRAZ<br />
+              <strong>🎯 Lider:</strong> Seyfullah HANEDAR
+            </div>
+            <div>
+              <strong>👨‍💻 Ekip:</strong><br />
+              Abdullah VARDAL, İlyas SAFİ, Metin Erkut TOPBAŞ
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanal Sınıf Katılımcısı</title>
+    <style>
+      body {
+        width: 320px;
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        color: white;
+        margin: 0;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .header h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .header p {
+        margin: 5px 0 0 0;
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .student-info {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        backdrop-filter: blur(10px);
+      }
+
+      .status-section {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .status-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        gap: 8px;
+      }
+
+      .status-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #2ecc71;
+        animation: pulse 2s infinite;
+      }
+
+      .status-dot.inactive {
+        background: #95a5a6;
+        animation: none;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.7;
+          transform: scale(1.1);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin: 15px 0;
+      }
+
+      .info-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      /* Manuel Feedback Buttons */
+      .feedback-buttons {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 99999;
+      }
+
+      .feedback-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 3px solid white;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .feedback-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .feedback-btn:active {
+        transform: scale(0.95);
+      }
+
+      .feedback-btn.confused {
+        background: linear-gradient(135deg, #e67e22, #d35400);
+      }
+
+      .feedback-btn.frustrated {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+      }
+
+      .feedback-btn.sleepy {
+        background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+      }
+
+      .feedback-btn.sent {
+        animation: feedback-pulse 0.5s ease;
+      }
+
+      @keyframes feedback-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      }
+
+      .info-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .info-number {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 3px;
+      }
+
+      .info-label {
+        font-size: 11px;
+        opacity: 0.8;
+      }
+
+      .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-1px);
+      }
+
+      .btn.primary {
+        background: rgba(255, 255, 255, 0.9);
+        color: #0984e3;
+        font-weight: 600;
+      }
+
+      .privacy-note {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 11px;
+        line-height: 1.4;
+        opacity: 0.9;
+        border-left: 3px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 10px;
+        opacity: 0.7;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .loading {
+        text-align: center;
+        padding: 10px;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Manuel Feedback Buttons - Görünmez, emotion.js tarafından inject edilecek -->
+    <!-- Burada sadece stil tanımlanıyor -->
+
+    <div class="header">
+      <h2>🎓 Sanal Sınıf Katılımcısı</h2>
+      <p>Akıllı Ders Takip Asistanı</p>
+    </div>
+
+    <div class="student-info" id="studentInfo">
+      <div class="loading">🔄 Bilgiler yükleniyor...</div>
+    </div>
+
+    <div class="status-section">
+      <div class="status-indicator">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Hazır</span>
+      </div>
+      <div style="font-size: 12px; opacity: 0.9" id="statusDetail">
+        Video konferans sayfasına gidin
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-number" id="analysisCount">0</div>
+        <div class="info-label">Analiz Sayısı</div>
+      </div>
+      <div class="info-card">
+        <div class="info-number" id="sessionTime">00:00</div>
+        <div class="info-label">Oturum Süresi</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn primary" id="toggleAnalysis">🎯 Analizi Başlat</button>
+      <button class="btn" id="serverSettingsBtn">⚙️ Ayarlar</button>
+    </div>
+
+    <div class="privacy-note">
+      <div style="font-weight: bold; margin-bottom: 5px">
+        🔒 Gizlilik Güvencesi
+      </div>
+      • Verileriniz sadece derse odaklanma amacıyla kullanılır<br />
+      • Hiçbir kişisel görüntünüz kaydedilmez<br />
+      • Analiz sonuçları anonim şekilde işlenir<br />
+      • İstediğiniz zaman durdurabilirsiniz
+    </div>
+
+    <div class="footer">
+      <div>Öğrenci Sürüm v2.1.0</div>
+      <div style="margin-top: 3px">Güvenli ve Anonim Analiz</div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ayarlar</title>
+    <link rel="stylesheet" href="settings.css" />
+  </head>
+  <body>
+    <div class="settings-container">
+      <header>
+        <h2>⚙️ Ayarlar</h2>
+      </header>
+
+      <div class="setting-group">
+        <label>Sunucu Adresi:</label>
+        <input
+          type="text"
+          id="server-url"
+          placeholder="https://localhost:5001"
+          value=""
+        />
+        <button id="test-connection" class="test-btn">
+          🔗 Bağlantıyı Test Et
+        </button>
+        <div id="connection-status"></div>
+      </div>
+
+      <div class="setting-group">
+        <label>🔑 API Anahtarı:</label>
+        <input
+          type="password"
+          id="api-key"
+          placeholder="Öğretmeninizden aldığınız anahtar"
+          value=""
+        />
+        <small style="opacity: 0.8; font-size: 12px"
+          >Güvenli erişim için gerekli</small
+        >
+      </div>
+
+      <!-- Analiz aralığı öğrenci ayarlarından kaldırıldı; öğretmen panelinden yönetilir -->
+
+      <div class="setting-group">
+        <label>
+          <input type="checkbox" id="notifications-enabled" checked />
+          Bildirimler aktif
+        </label>
+      </div>
+
+      <div class="button-group">
+        <button id="save-settings" class="primary-btn">💾 Kaydet</button>
+        <button id="reset-settings" class="secondary-btn">🔄 Sıfırla</button>
+      </div>
+
+      <div class="info-section">
+        <p><strong>ℹ️ Bilgi:</strong></p>
+        <p>Sunucu adresi öğretmeniniz tarafından paylaşılacaktır.</p>
+        <p>Analiz aralığı öğretmen tarafından belirlenir.</p>
+      </div>
+    </div>
+
+    <script src="settings.js"></script>
+  </body>
+</html>

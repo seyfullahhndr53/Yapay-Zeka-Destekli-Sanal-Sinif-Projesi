@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "AI Class Control - Teacher Panel",
+  "version": "1.0.0",
+  "description": "Multi-platform AI classroom management for Meet, Zoom, and BigBlueButton",
+
+  "permissions": ["activeTab", "storage", "scripting", "alarms"],
+
+  "host_permissions": [
+    "http://127.0.0.1/*",
+    "http://localhost/*",
+    "https://localhost/*",
+    "http://*/*",
+    "https://*/*",
+    "https://meet.google.com/*",
+    "https://*.bigbluebutton.org/*",
+    "https://*.zoom.us/*",
+    "https://*.zoom.com/*"
+  ],
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' http://127.0.0.1:* http://localhost:* https://localhost:* https://*:* http://*:*;"
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://meet.google.com/*",
+        "https://*.bigbluebutton.org/*",
+        "https://*.zoom.us/*",
+        "https://*.zoom.com/*",
+        "https://*/html5client/*"
+      ],
+      "js": ["emotion.js"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AI Class Control"
+  },
+
+  "options_page": "options.html"
+}
