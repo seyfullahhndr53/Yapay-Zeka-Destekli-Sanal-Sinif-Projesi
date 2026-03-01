@@ -64,17 +64,10 @@ Eklenti/
 
 ```powershell
 pip install -r requirements.txt
-cp .env.example .env  # Opsiyonel: Ayarları özelleştirmek için
 python python_server_central.py
 ```
 
 Backend varsayılan olarak `http://127.0.0.1:5001` üzerinden erişilir (dev). Model olarak `Duygu_Tanima.h5` yüklenir (TensorFlow/Keras).
-
-Alternatif hızlı geliştirme modu:
-
-```powershell
-./run_simple.ps1
-```
 
 ### 2️⃣ Öğrenci Uzantısı
 
@@ -85,7 +78,8 @@ Alternatif hızlı geliştirme modu:
 ### 3️⃣ Öğretmen Uzantısı
 
 1. chrome://extensions/ açın
-2. Paketlenmemiş → teacher-extension klasörünü seçin
+2. Geliştirici modunu açın
+3. Paketlenmemiş → teacher-extension klasörünü seçin
 
 ### 4️⃣ İlk Yapılandırma
 
