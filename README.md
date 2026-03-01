@@ -209,58 +209,39 @@ netstat -ano | findstr :5001
 
 ---
 
-## 🌍 DEPLOYMENT (GLOBAL KULLANIM)
+# 🌍 DEPLOYMENT (GLOBAL KULLANIM) — Cloudflare Tunnel
 
-### Seçenek 1: VPS (DigitalOcean, AWS, Azure)
+## TR — Cloudflare Tunnel (hızlı URL, HTTPS)
 
-```bash
-# Sunucuya deploy et
-scp -r * user@your-server.com:/opt/bbb-emotion
-ssh user@your-server.com
-cd /opt/bbb-emotion
+Bu tek sayfalık rehber, backend'i global erişime açmak için Cloudflare Tunnel kullanımını anlatır. Senaryonuz: backend + tunnel kendi bilgisayarınızda.
+
+### Gerekenler
+
+- Backend'in bilgisayarda `http://127.0.0.1:5001` üzerinde çalışması
+- `cloudflared` kurulu olması
+
+### Adımlar
+
+1) Backend'i başlat:
+
+```powershell
 python python_server_central.py
 ```
 
-DNS ayarla: `emotion.example.com` → Server IP
+2) Cloudflare Tunnel çalıştır (terminal bir HTTPS URL verir):
 
-### Seçenek 2: Ngrok (Hızlı Test)
-
-```bash
-ngrok http 5001
+```powershell
+cloudflared tunnel --url http://127.0.0.1:5001
 ```
 
-Ngrok URL'sini uzantı ayarlarına gir
+3) Terminalde çıkan HTTPS URL'yi (genelde `trycloudflare.com`) eklenti ayarındaki Backend URL alanına yapıştır. Ardından bağlantıyı test et dediğiniz de bağlantı başarılı derse eğer artık herşey hazırdır.
 
-### Seçenek 3: Railway / Render (Ücretsiz)
+### Notlar
 
-- GitHub'a push
-- Railway.app'de "New Project" → GitHub repo bağla
-- Otomatik deploy edilir
+- Bilgisayar uykuya geçerse / terminal kapanırsa / internet giderse erişim kesilir.
+- Tunnel yeniden başlarsa URL değişebilir.
 
----
 
-## 📱 TELEFONDA KULLANIM
-
-Chrome uzantıları mobilde çalışmaz. **Alternatif çözüm**:
-
-### PWA (Progressive Web App) Oluştur
-
-```html
-<!-- public/index.html -->
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="manifest" href="manifest.json" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <body>
-    <video id="webcam" autoplay></video>
-    <script src="emotion-mobile.js"></script>
-  </body>
-</html>
-```
-
-Mobil tarayıcıda aç → **"Ana Ekrana Ekle"** → Uygulama gibi çalışır
 
 ---
 
