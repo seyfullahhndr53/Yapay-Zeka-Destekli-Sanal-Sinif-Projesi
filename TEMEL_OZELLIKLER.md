@@ -203,13 +203,6 @@ Kaynak ayrımı `raw.emotions[0].source` alanından yapılır (`manual` / `syste
 
 ## 🎓 Öğretmen İçin İpuçları
 
-💡 **Banner renklerini ciddiye alın:**
-
-- 🔴 Kırmızı → Acil müdahale gerekli
-- 🟠 Turuncu → Dikkat edilmeli
-- 🟡 Sarı → Farkında olun
-- 🟢 Yeşil → Çok iyi gidiyor
-
 💡 **Manuel feedback'leri önemseyin:**
 
 - Otomatik tespitte hata olabilir
