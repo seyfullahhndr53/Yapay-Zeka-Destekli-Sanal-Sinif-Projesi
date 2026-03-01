@@ -34,7 +34,7 @@ Beklenen çıktı:
 1. Google Meet toplantısına katıl
 2. Student extension popup'ını aç
 3. Adını ve toplantı kodunu gir
-4. "Analizi Başlat" tıkla
+4. "Analizi Başlat" tıkla (Analiz durdur butonuna tıklanılırsa tekrardan başlatmak için sayfayı F5 ile yenileyip o şekilde başlatmanız gerekir aksi halde analiz başlamayacaktır.)
 
 ---
 
@@ -207,14 +207,6 @@ Her butona tıkladığında:
 2. **Console:** ✅ log'ları
 3. **Backend:** 📝 kayıt logları
 4. **JSON:** Manuel feedback kaydı (`raw.emotions[0].source = "manual"`)
-
----
-
-## 📊 PERFORMANS BEKLENTİLERİ
-
-- Toast gösterim: < 100ms
-- Backend yanıt: < 500ms
-- JSON export: < 2 saniye
 
 ---
 
