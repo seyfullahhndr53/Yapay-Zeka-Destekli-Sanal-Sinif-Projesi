@@ -42,13 +42,6 @@ cloudflared tunnel --url http://127.0.0.1:5001
 
 3) Terminalde çıkan HTTPS URL'yi (genelde `trycloudflare.com`) eklenti ayarındaki Backend URL alanına yapıştır. Sonra "Bağlantıyı Test Et" deyin; başarılıysa sistem hazırdır.
 
-4) Gerekirse `.env` içinde `CORS_ORIGINS` alanına şunu ekleyip backend'i yeniden başlat:
-
-```env
-https://*.trycloudflare.com
-```
-
-
 ### Notlar
 
 - Bilgisayar uykuya geçerse / terminal kapanırsa / internet giderse erişim kesilir.
